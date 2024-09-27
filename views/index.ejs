@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>CookHub</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+        <link rel="manifest" href="/images/site.webmanifest">
+        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="apple-mobile-web-app-status-bar-style" content="white">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="css/style.css">
+        <meta name="description" content="Best sushi delivery in Gdansk. Order now and enjoy fresh sushi at home!">
+    </head>
+    
+    <body>
+        <!-- Логотип и заголовок -->
+        <header class="header">
+            <img src="/images/feis-1.webp" alt="CookHub Logo" class="logo">
+            <h1>CookHub</h1>
+        </header>
+    
+        <!-- Лента чата в стиле Threads -->
+        <div class="chat-feed">
+            <div class="chat-message">
+                <div class="message-header">
+                    <img src="/images/feis-1.webp" alt="Avatar" class="avatar">
+                    <div class="user-info">
+                        <span class="username">@user1</span>
+                        <span class="timestamp">5 минут назад</span>
+                    </div>
+                </div>
+                <div class="message-body">
+                    <p>Привет! Как дела?</p>
+                </div>
+                <div class="message-actions">
+                    <button class="like-btn">❤️</button>
+                    <button class="reply-btn">Ответить</button>
+                </div>
+            </div>
+    
+            <div class="chat-message">
+                <div class="message-header">
+                    <img src="/images/feis-1.webp" alt="Avatar" class="avatar">
+                    <div class="user-info">
+                        <span class="username">@user2</span>
+                        <span class="timestamp">2 минуты назад</span>
+                    </div>
+                </div>
+                <div class="message-body">
+                    <p>Все хорошо! А у тебя?</p>
+                </div>
+                <div class="message-actions">
+                    <button class="like-btn">❤️</button>
+                    <button class="reply-btn">Ответить</button>
+                </div>
+            </div>
+        </div>
+    
+        <%- include('partials/nav') %> <!-- Подключение навигации -->
+        <script src="/js/script.js"></script>
+        <script src="/js/pwa.js"></script>
+    </body>
+    
+</html>
+
+ 
