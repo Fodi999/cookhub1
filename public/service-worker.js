@@ -1,10 +1,10 @@
-const CACHE_NAME = 'pwa-cache-v1';
+const CACHE_NAME = 'pwa-cache-v1';  
 const urlsToCache = [
   '/',
   '/css/style.css',
   '/manifest.json',
-  '/images/android-chrome-192x192.png',  // Обновлённый путь к иконке
-  '/images/android-chrome-512x512.png'   // Также проверь путь к другой иконке
+  '/images/android-chrome-192x192.png',
+  '/images/android-chrome-512x512.png'
 ];
 
 // Устанавливаем service worker и кэшируем ресурсы
@@ -12,20 +12,10 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        return Promise.all(
-          urlsToCache.map((url) => {
-            return fetch(url)
-              .then((response) => {
-                if (!response.ok) {
-                  throw new TypeError('Bad response status');
-                }
-                return cache.put(url, response);
-              })
-              .catch((error) => {
-                console.error('Failed to cache:', url, error);
-              });
-          })
-        );
+        return cache.addAll(urlsToCache);
+      })
+      .catch((error) => {
+        console.error('Failed to cache resources:', error);
       })
   );
 });
@@ -40,6 +30,10 @@ self.addEventListener('fetch', (event) => {
         }
         return fetch(event.request);  // Если ресурс не закэширован, запрашиваем его
       })
+      .catch((error) => {
+        console.error('Fetch failed:', error);
+        throw error;
+      })
   );
 });
 
@@ -50,7 +44,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (!cacheWhitelist.includes(cacheName)) {
             return caches.delete(cacheName);
           }
         })
@@ -58,3 +52,7 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
+
+
+
+ 
