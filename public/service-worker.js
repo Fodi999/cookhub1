@@ -2,9 +2,13 @@ const CACHE_NAME = 'pwa-cache-v1';
 const urlsToCache = [
   '/',
   '/css/style.css',
-  '/manifest.json',
+  '/images/apple-touch-icon.png',
+  '/images/favicon-32x32.png',
+  '/images/favicon-16x16.png',
   '/images/android-chrome-192x192.png',
-  '/images/android-chrome-512x512.png'
+  '/images/android-chrome-512x512.png',
+  '/images/safari-pinned-tab.svg',
+  '/images/Rectangle-3.webp'
 ];
 
 // Устанавливаем service worker и кэшируем ресурсы
