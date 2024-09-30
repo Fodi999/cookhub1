@@ -1,38 +1,16 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- Метатеги для iOS и Android с черной темой -->
-    <meta name="mobile-web-app-capable" content="yes"> <!-- Включает PWA режим на Android и iOS -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"> <!-- Черный статус-бар для iOS -->
-    <meta name="theme-color" content="#000000"> <!-- Чёрная тема для Android -->
-    
-    <title>CookHub</title>
-    
-    <!-- Подключение стилей -->
-    <link rel="stylesheet" href="/css/style.css"> <!-- Стили формы регистрации и навигации -->
-    
-    
-</head>
-<body>
-    <!-- Включаем навигацию -->
-    <%- include('partials/nav'); %>
+<div class="register-container">
+    <h1>Регистр для гостей</h1>
+    <form action="/register" method="POST">
+        <div class="form-group">
+            <input type="text" id="username" name="username" placeholder="Введите ваше имя пользователя" required>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" placeholder="Введите ваш пароль" required>
+        </div>
+        <button type="submit" class="btn">Регистрация</button>
+    </form>
+</div>
 
-    <div class="register-container">
-        <h1>Rejestracja dla gości</h1>
-        <form action="/register" method="POST">
-            <div class="form-group">
-                <input type="text" id="username" name="username" placeholder="Wpisz swoją nazwę użytkownika" required>
-            </div>
-            <div class="form-group">
-                <input type="password" id="password" name="password" placeholder="Wpisz swoje hasło" required>
-            </div>
-            <button type="submit" class="btn">Rejestr</button>
-        </form>
-    </div>
-</body>
-</html>
+
 
  

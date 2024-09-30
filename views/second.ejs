@@ -1,85 +1,37 @@
-<!DOCTYPE html>
-<html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>CookHub</title>
-        
-        <!-- Иконки для разных устройств -->
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-        <link rel="manifest" href="/images/site.webmanifest">
-        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-        
-        <!-- Цветовые темы для браузеров -->
-        <meta name="msapplication-TileColor" content="#000000"> <!-- Чёрная тема для Windows плиток -->
-        <meta name="theme-color" content="#000000"> <!-- Чёрная тема для Android и браузеров -->
-        
-        <!-- Поддержка PWA -->
-        <meta name="mobile-web-app-capable" content="yes"> <!-- Современный тег для PWA -->
-        <meta name="apple-mobile-web-app-status-bar-style" content="black"> <!-- Чёрный статус-бар для iOS -->
-        <link rel="preload" href="/images/Rectangle-3.webp" as="image">
-        
-        <!-- Подключение стилей и иконок -->
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="/css/style.css">
-        
-        <!-- Описание для SEO -->
-        <meta name="description" content="Best sushi delivery in Gdansk. Check out our menu for sushi, rolls, sets, and snacks.">
-        
-    </head>
-    
-<body>
-    <main class="main-content">
-        <!-- Секция для Суши -->
-        <header class="header">
-            <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Sushi</h2>
-        </header>
-        <div class="card-container" id="card-container-row-1">
-            <!-- Карточки для Суши -->
-        </div>
+<main class="main-content">
+    <!-- Секция для Суши -->
+    <header class="header">
+        <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Sushi</h2>
+    </header>
+    <div class="card-container" id="card-container-row-1">
+        <!-- Карточки для Суши -->
+    </div>
 
-        <!-- Секция для Роллов -->
-        <header class="header">
-            <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Rolki sushi</h2>
-        </header>
-        <div class="card-container" id="card-container-row-2">
-            <!-- Карточки для Роллов -->
-        </div>
+    <!-- Секция для Роллов -->
+    <header class="header">
+        <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Rolki sushi</h2>
+    </header>
+    <div class="card-container" id="card-container-row-2">
+        <!-- Карточки для Роллов -->
+    </div>
 
-        <!-- Секция для Сетов -->
-        <header class="header">
-            <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Zestawy</h2>
-        </header>
-        <div class="card-container" id="card-container-row-3">
-            <!-- Карточки для Сетов -->
-        </div>
+    <!-- Секция для Сетов -->
+    <header class="header">
+        <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Zestawy</h2>
+    </header>
+    <div class="card-container" id="card-container-row-3">
+        <!-- Карточки для Сетов -->
+    </div>
 
-        <!-- Секция для Закусок -->
-        <header class="header">
-            <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Przekąski</h2>
-        </header>
-        <div class="card-container" id="card-container-row-4">
-            <!-- Карточки для Закусок -->
-        </div>
-    </main>
-
-    <!-- Добавляем подвал -->
-    <footer class="footer">
-        
-    </footer>
-
-    <%- include('partials/nav') %> <!-- Подключение навигации -->
-    <script src="/js/cards.js"></script> <!-- JavaScript для динамического добавления карточек -->
-    <script src="/js/pwa.js"></script>
-    <script src="/js/script.js"></script>
-
-</body>
-</html>
-
-
-
-
- 
+    <!-- Секция для Закусок -->
+    <header class="header">
+        <h2 class="section-title"><i class='bx bxs-right-arrow'></i>Przekąski</h2>
+    </header>
+    <div class="card-container" id="card-container-row-4">
+        <!-- Карточки для Закусок -->
+    </div>
+</main>
+<!-- Подвал для карточек -->
+<footer class="footer">
+    <div class="footer-content"></div>
+</footer>

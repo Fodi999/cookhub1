@@ -1,32 +1,52 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const listItems = document.querySelectorAll('.navigation .list a');
+    const registerModal = document.getElementById("registerModal");
+    const menuModal = document.getElementById("menuModal");
+    const closeRegister = document.getElementById("closeRegister");
+    
 
-    // Проверяем, есть ли сохранённый индекс активного элемента в localStorage
-    const activeIndex = localStorage.getItem('activeIndex');
+    const openRegister = document.getElementById("openRegister");
+    const openMenu = document.getElementById("openMenu");
 
-    // Если активный элемент сохранён, устанавливаем активный класс
-    if (activeIndex !== null) {
-        listItems[activeIndex].parentElement.classList.add('active');
+    // Иконка "Дом"
+    const homeIcon = document.querySelector('.list.active a'); // Ищем активный элемент навигации, где "Дом"
+
+    // Открыть модальное окно регистрации
+    if (openRegister && registerModal) {
+        openRegister.onclick = function() {
+            registerModal.style.display = 'block';
+        };
     }
 
-    // Добавляем слушатель клика на каждый элемент
-    listItems.forEach((item, index) => {
-        item.addEventListener('click', function(event) {
-            // Сохраняем индекс активного элемента в localStorage перед переходом
-            localStorage.setItem('activeIndex', index);
+    // Открыть модальное окно меню
+    if (openMenu && menuModal) {
+        openMenu.onclick = function() {
+            menuModal.style.display = 'block';
+        };
+    }
 
-            // Удаляем активный класс у всех элементов
-            listItems.forEach(i => i.parentElement.classList.remove('active'));
+    // Закрытие модальных окон при нажатии на "Дом"
+    if (homeIcon) {
+        homeIcon.onclick = function() {
+            if (registerModal.style.display === 'block') {
+                registerModal.style.display = "none";
+            }
+            if (menuModal.style.display === 'block') {
+                menuModal.style.display = "none";
+            }
+        };
+    }
 
-            // Добавляем активный класс текущему элементу
-            this.parentElement.classList.add('active');
-
-            // Переход на новую страницу после сохранения индекса
-            event.preventDefault();  // Останавливаем стандартное поведение ссылки
-            window.location.href = this.href;  // Переходим по URL вручную
-        });
-    });
+    // Закрытие модальных окон при клике вне их области
+    window.onclick = function(event) {
+        if (event.target == registerModal) {
+            registerModal.style.display = "none";
+        } else if (event.target == menuModal) {
+            menuModal.style.display = "none";
+        }
+    };
 });
+
+
 
 
 

@@ -1,83 +1,84 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>CookHub</title>
-        
-        <!-- Иконки для iOS и Android -->
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-        <link rel="manifest" href="/images/site.webmanifest">
-        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-        
-        <!-- Метатеги для PWA на iOS и Android -->
-        <meta name="msapplication-TileColor" content="#000000"> <!-- Черный цвет плитки Windows -->
-        <meta name="theme-color" content="#000000"> <!-- Чёрная тема для Android и браузеров -->
-        <meta name="mobile-web-app-capable" content="yes"> <!-- Включает PWA-режим на Android и iOS -->
-        <meta name="apple-mobile-web-app-status-bar-style" content="black"> <!-- Черный статус-бар для iOS -->
-        
-        <!-- Подключение стилей и иконок -->
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="css/style.css">
-        
-        <!-- SEO описание -->
-        <meta name="description" content="Best sushi delivery in Gdansk. Order now and enjoy fresh sushi at home!">
-        
-        
-    </head>
-    
-    <body>
-        <!-- Логотип и заголовок -->
-        <header class="header">
-            <img src="/images/feis-1.webp" alt="CookHub Logo" class="logo">
-            <h1>CookHub</h1>
-        </header>
-    
-        <!-- Лента чата в стиле Threads -->
-        <div class="chat-feed">
-            <div class="chat-message">
-                <div class="message-header">
-                    <img src="/images/feis-1.webp" alt="Avatar" class="avatar">
-                    <div class="user-info">
-                        <span class="username">@user1</span>
-                        <span class="timestamp">5 minut temu</span>
-                    </div>
-                </div>
-                <div class="message-body">
-                    <p>Cześć! Jak się masz?</p>
-                </div>
-                <div class="message-actions">
-                    <button class="like-btn">❤️</button>
-                    <button class="reply-btn">Odpowiedź</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CookHub</title>
+
+    <!-- Подключение стилей и иконок -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/site.webmanifest">
+    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    <!-- Метатеги для PWA на iOS и Android -->
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Подключение Ionicons и стилей -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- SEO описание -->
+    <meta name="description" content="Best sushi delivery in Gdansk. Order now and enjoy fresh sushi at home!">
+</head>
+
+<body>
+    <!-- Логотип и заголовок -->
+    <header class="header">
+        <img src="/images/feis-1.webp" alt="CookHub Logo" class="logo">
+        <h1>CookHub</h1>
+    </header>
+
+    <!-- Лента чата -->
+    <div class="chat-feed">
+        <div class="chat-message">
+            <div class="message-header">
+                <img src="/images/feis-1.webp" alt="Avatar" class="avatar">
+                <div class="user-info">
+                    <span class="username">@user1</span>
+                    <span class="timestamp">5 минут назад</span>
                 </div>
             </div>
-    
-            <div class="chat-message">
-                <div class="message-header">
-                    <img src="/images/feis-1.webp" alt="Avatar" class="avatar">
-                    <div class="user-info">
-                        <span class="username">@user2</span>
-                        <span class="timestamp">2 minuty temu</span>
-                    </div>
-                </div>
-                <div class="message-body">
-                    <p>Wszystko jest w porządku! A ty ?</p>
-                </div>
-                <div class="message-actions">
-                    <button class="like-btn">❤️</button>
-                    <button class="reply-btn">Odpowiedź</button>
-                </div>
+            <div class="message-body">
+                <p>Привет! Как дела?</p>
+            </div>
+            <div class="message-actions">
+                <button class="like-btn">❤️</button>
+                <button class="reply-btn">Ответить</button>
             </div>
         </div>
-    
-        <%- include('partials/nav') %> <!-- Подключение навигации -->
-        <script src="/js/script.js"></script>
-        <script src="/js/pwa.js"></script>
-    </body>
-    
+    </div>
+
+    <!-- Подключение навигации -->
+    <%- include('partials/nav') %>
+
+    <!-- Модальное окно для регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <%- include('register') %> <!-- Включаем содержимое register.ejs -->
+        </div>
+    </div>
+
+    <!-- Модальное окно для меню -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+        
+            <%- include('second') %> <!-- Включаем содержимое second.ejs -->
+        </div>
+    </div>
+
+    <!-- Подключение JavaScript -->
+    <script src="/js/cards.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/pwa.js"></script>
+</body>
 </html>
+
 
  
