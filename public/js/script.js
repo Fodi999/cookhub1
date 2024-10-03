@@ -60,14 +60,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 });
-
-
-
-
-
-
-
-
-
-
- 
