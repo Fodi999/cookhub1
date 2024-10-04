@@ -1,62 +1,143 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-const bodyParser = require('body-parser');
+"use strict";
 
-// Устанавливаем папку для статики
-app.use(express.static(path.join(__dirname, 'public')));
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cluster from 'cluster';
+import os from 'os';
 
-// Подключаем bodyParser для работы с формами
-app.use(bodyParser.urlencoded({ extended: true }));
+// Если это основной процесс, запускаем воркеры
+if (cluster.isPrimary) {
+    const numCPUs = os.cpus().length;
+    console.log(`Запуск ${numCPUs} воркеров...`);
 
-// Настройка движка EJS
-app.set('view engine', 'ejs');
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
 
-// Маршрут для главной страницы
-app.get('/', (req, res) => {
-    res.render('index', { isHomePage: true });  // Передаем флаг для главной страницы
-});
+    // Перезапуск воркера, если он упал
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`Воркер ${worker.process.pid} завершен`);
+        cluster.fork(); // Запускаем новый воркер на замену
+    });
 
-// Маршрут для второй страницы (меню)
-app.get('/second', (req, res) => {
-    res.render('second', { isHomePage: false });  // Передаем флаг для других страниц
-});
+} else {
+    // Воркер обрабатывает запросы через общий сервер
+    const app = express();
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
 
-// Маршрут для страницы входа
-app.get('/login', (req, res) => {
-    res.render('login', { isHomePage: false });  // Передаем флаг для других страниц
-});
+    // Настройка движка EJS
+    app.set('view engine', 'ejs');
+    app.set('views', path.join(__dirname, 'views'));
 
-// Маршрут для страницы регистрации
-app.get('/register', (req, res) => {
-    res.render('register', { isHomePage: false });  // Передаем флаг для других страниц
-});
+    // Устанавливаем папку для статики
+    app.use(express.static(path.join(__dirname, 'public')));
 
-// Обработка POST-запроса для регистрации
-app.post('/register', (req, res) => {
-    const { username, password } = req.body;
-    // Здесь вы можете добавить логику для сохранения пользователя в базу данных
-    console.log(`Зарегистрирован новый пользователь: ${username}`);
-    res.redirect('/profile');  // После регистрации перенаправляем на страницу профиля
-});
+    // Подключаем встроенные middlewares для обработки форм
+    app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
 
-// Обработка POST-запроса для входа
-app.post('/login', (req, res) => {
-    const { uniqueKey } = req.body;
-    // Логика аутентификации пользователя
-    console.log(`Попытка входа с уникальным ключом: ${uniqueKey}`);
-    res.redirect('/profile');  // После входа перенаправляем на страницу профиля
-});
+    // Контроллеры
+    const renderHomePage = (req, res, next) => {
+        try {
+            res.render('index', { isHomePage: true });
+        } catch (err) {
+            next(err);
+        }
+    };
 
-// Маршрут для страницы профиля (заглушка)
-app.get('/profile', (req, res) => {
-    res.send('Это ваша страница профиля');  // Здесь может быть страница профиля пользователя
-});
+    const renderSecondPage = (req, res, next) => {
+        try {
+            res.render('second', { isHomePage: false });
+        } catch (err) {
+            next(err);
+        }
+    };
 
-// Запуск сервера
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
-    console.log(`Откройте в браузере: http://localhost:${PORT}`);
-});
+    const renderProfilePage = (req, res, next) => {
+        try {
+            res.send('Это ваша страница профиля');
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    const renderLoginPage = (req, res, next) => {
+        try {
+            res.render('login', { isHomePage: false });
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    const renderRegisterPage = (req, res, next) => {
+        try {
+            res.render('register', { isHomePage: false });
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    const handleRegister = async (req, res, next) => {
+        try {
+            const { username, password } = req.body;
+            console.log(`Зарегистрирован новый пользователь: ${username}`);
+            res.redirect('/profile');
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    const handleLogin = async (req, res, next) => {
+        try {
+            const { uniqueKey } = req.body;
+            console.log(`Попытка входа с уникальным ключом: ${uniqueKey}`);
+            res.redirect('/profile');
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    // Маршруты
+    app.get('/', renderHomePage);
+    app.get('/second', renderSecondPage);
+    app.get('/profile', renderProfilePage);
+    app.get('/login', renderLoginPage);
+    app.get('/register', renderRegisterPage);
+
+    app.post('/register', handleRegister);
+    app.post('/login', handleLogin);
+
+    // Глобальный обработчик ошибок
+    app.use((err, req, res, next) => {
+        console.error(err.stack);
+        res.status(500).send('Что-то пошло не так!');
+    });
+
+    // Обработка неперехваченных исключений
+    process.on('uncaughtException', (err) => {
+        console.error('Uncaught Exception:', err);
+    });
+
+    process.on('unhandledRejection', (reason, promise) => {
+        console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    });
+
+    // Запуск сервера, но каждый воркер использует общий порт
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        if (cluster.isWorker && cluster.worker.id === 1) {
+            const url = `http://localhost:${PORT}`;
+            console.log(`Воркер ${process.pid} обрабатывает запросы на порту ${PORT}`);
+            console.log(`Откройте в браузере: ${url}`);
+        } else {
+            console.log(`Воркер ${process.pid} обрабатывает запросы на порту ${PORT}`);
+        }
+    });
+}
+
+
+
+
  
