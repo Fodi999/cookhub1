@@ -54,6 +54,7 @@ if (cluster.isPrimary) {
             next(err);
         }
     };
+    
 
     const renderProfilePage = (req, res, next) => {
         try {
@@ -98,6 +99,16 @@ if (cluster.isPrimary) {
             next(err);
         }
     };
+    const renderCartPage = (req, res, next) => {
+        try {
+            res.render('cart', { isHomePage: false });
+        } catch (err) {
+            next(err);
+        }
+    };
+    
+    app.get('/cart', renderCartPage);
+    
 
     // Маршруты
     app.get('/', renderHomePage);
@@ -139,5 +150,7 @@ if (cluster.isPrimary) {
 
 
 
+
+ 
 
  

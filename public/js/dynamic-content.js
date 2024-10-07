@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     url = '/second';  // Путь к файлу меню
                 } else if (page === 'register') {
                     url = '/register';  // Путь к файлу регистрации
+                } else if (page === 'cart') {
+                    url = '/cart';  // Путь к файлу корзины
                 }
 
                 // Загружаем контент с помощью fetch
@@ -60,6 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (page === 'menu') {
                             loadCards();  // Загружаем карточки
                         }
+
+                        // Если загружаем страницу корзины, загружаем cart.js
+                        if (page === 'cart') {
+                            loadCartScript();
+                        }
                     })
                     .catch(error => {
                         console.error('Ошибка загрузки контента:', error);
@@ -70,8 +77,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        // Функция для динамической загрузки cart.js
+        function loadCartScript() {
+            const script = document.createElement('script');
+            script.src = '/js/cart.js';  // Путь к файлу cart.js
+            script.onload = function() {
+                initCart();  // Инициализация корзины после загрузки скрипта
+            };
+            script.onerror = function() {
+                console.error('Ошибка загрузки cart.js');
+            };
+            document.body.appendChild(script);
+        }
+
     } catch (error) {
         console.error("Ошибка при инициализации страницы:", error);
     }
 });
+
+
+
 
